@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Medical Charges Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f2f6f9;
+            color: #333;
+        }
+
+        /* ---------- HEADER ---------- */
+        header {
+            background-color: #0b5ed7;
+            color: white;
+            padding: 20px 40px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* ---------- MAIN CONTAINER ---------- */
+        .main-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        /* ---------- INFO CARD ---------- */
+        .info-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .info-card h2 {
+            margin-top: 0;
+            color: #0b5ed7;
+        }
+
+        .info-card p {
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .info-list {
+            margin-top: 20px;
+        }
+
+        .info-list li {
+            margin-bottom: 10px;
+        }
+
+        /* ---------- FORM CARD ---------- */
+        .form-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-card h2 {
+            margin-top: 0;
+            color: #198754;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .radio-group {
+            margin-top: 10px;
+        }
+
+        .radio-group input {
+            margin-right: 5px;
+        }
+
+        .radio-group label {
+            margin-right: 15px;
+            font-weight: normal;
+        }
+
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            background-color: #198754;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #157347;
+        }
+
+        /* ---------- RESULT ---------- */
+        .result {
+            margin-top: 25px;
+            padding: 18px;
+            background-color: #e9f7ef;
+            border-left: 6px solid #198754;
+            border-radius: 8px;
+            font-size: 18px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* ---------- FOOTER ---------- */
+        footer {
+            background-color: #0b5ed7;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 13px;
+            margin-top: 50px;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 900px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <h1>SmartCare Hospital</h1>
+        <p>AI-powered medical cost estimation system</p>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-container">
+
+        <!-- INFO SECTION -->
+        <div class="info-card">
+            <h2>About This Prediction Model</h2>
+            <p>
+                This medical charges prediction system uses a <strong>Linear Regression
+                    Machine Learning model</strong> trained on real healthcare data.
+                It estimates an individual’s expected medical insurance charges
+                based on demographic and lifestyle factors.
+            </p>
+
+            <ul class="info-list">
+                <li>✔ Age and Body Mass Index (BMI)</li>
+                <li>✔ Number of dependent children</li>
+                <li>✔ Gender and smoking habits</li>
+                <li>✔ Geographic region</li>
+            </ul>
+
+            <p>
+                This tool is designed for <strong>educational and analytical purposes</strong>
+                and demonstrates how AI can assist healthcare cost planning.
+            </p>
+        </div>
+
+        <!-- FORM SECTION -->
+        <div class="form-card">
+            <h2>Medical Charges Estimator</h2>
+
+            <form action="/" method="post">
+
+                <label>Age</label>
+                <input type="number" name="age" min="0" max="120" required>
+
+
+                <label>Body Mass Index (BMI)</label>
+                <small>Typical BMI range: 16 – 35</small>
+
+                <input type="number" step="0.1" name="bmi" required>
+
+                <label>Number of Children</label>
+                <input type="number" name="children" required>
+
+                <label>Sex</label>
+                <div class="radio-group">
+                    <label><input type="radio" value="Male" name="sex" required> Male</label>
+                    <label><input type="radio" value="Female" name="sex" required> Female</label>
+                </div>
+
+                <label>Region</label>
+                <div class="radio-group">
+                    <label><input type="radio" value="northeast" name="area" required> Northeast</label>
+                    <label><input type="radio" value="northwest" name="area" required> Northwest</label>
+                    <label><input type="radio" value="southeast" name="area" required> Southeast</label>
+                    <label><input type="radio" value="southwest" name="area" required> Southwest</label>
+                </div>
+
+                <label>Smoker</label>
+                <div class="radio-group">
+                    <label><input type="radio" value="yes" name="smoker" required> Yes</label>
+                    <label><input type="radio" value="no" name="smoker" required> No</label>
+                </div>
+
+                <button type="submit">Predict Medical Charges</button>
+                <button type="reset">Clear Form</button>
+
+            </form>
+
+            {% if prediction %}
+            <div class="result">
+                Estimated Medical Charges: {{ prediction } $ }
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2026 SmartCare Hospital | AI-Driven Healthcare Analytics
+    </footer>
+
+
+</body>
+
+</html>
